@@ -1,0 +1,157 @@
+HASKELL
+
+P1 – 11-04
+P2 – 06-06
+P3 – 19-06
+
+Compilador GHC
+
+------------------
+Aula 01
+
+-> Não existe objeto
+-> Tipagem forte (Ao ponto de string de banco ser diferente de uma string criada por você)
+    > Muita modulação
+-> Sobrecarga
+-> Laziness (linguagem 'preguiçosa')
+    > Se tiver uma coisa para fazer = quanto mais tardar melhor
+-> Pura
+    > ( Impureza, exemplo: Java )
+        > chamar a mesma função com parametros iguais e dá resultado diferentes
+    > Todas as funções tem o mesmo retorno se tiverem o mesmo valor
+-> Haskell é imutável
+-> 'Variáveis' são constantes
+
+-------------------
+~Comandos~
+
+drop (joga fora)
+
+take(pega duas)
+
+take 3 "SANTOS"
+    "SAN
+    
+drop 3 "SANTOS"
+    TOS
+    
+rever SANTOS
+    SOTNAS
+    
+"FATEC ++ "SANTOS"
+    "FATECSANTOS"
+
+length "SANTOS"
+    6
+
+last "AMIGO"
+    O
+    
+head "AMIGO"
+    A
+
+reverse (drop 1 "SANTOS")
+    SOTNA
+    
+[1..100]
+
+- De dois em dois ( dá a dica )
+[1, 3..100]
+
+ - trás pra frente( dá dica )
+[100,99...]
+    
+- consegue trabalhar com loop infinito
+take 30 [1..]
+
+
+--------------------------------
+AULA 2
+
+começo de um arquivo .hs
+
+module Aula1 where
+
+
+dobro :: Double -> Double
+dobro x = 2*x
+
+
+
+sintaxe:
+
+-Tn = n parâmetros;
+-último 'T' é de retorno
+-Pode ter funções sem entrada (só com saída...uma função constante)
+ -> ex: u = 7
+
+nomeFuncao::T1 -> T2 ... -> Tn -> TRetorno
+nomeFuncao p1 p2 ... pn = EXPRRET1
+
+    
+    dobro 4 + 2
+    10.0
+    
+    dobro (4 + 2)
+    12.0
+    
+    dobro $ 4 + 2
+    --Pode trocar $ pelo parênteses
+
+
+-> para 'rodar'
+    :l  Aula.hs
+-> para recarregar
+    :r
+    
+    
+-> undefined indica funções que não vão acabar
+x :: int
+x = x + 1
+
+-> sempre que tem uma lista o parâmetro põe no plural
+
+diferente: /=
+
+- LIST COMPREHENSIONS: Gera uma lista
+-- a partir de uma expressao, iteracoes
+-- e filtros.
+
+[2*x | x<-[1..10], x /= 5]
+
+expressão | iteração, filtro
+
+multiplica o x que muda de 1 à 10 e filtra todos que são diferentes de 5
+
+["Linguagem " ++ x | x <- ["HASKELL", "PHP", "PYTHON", "JAVA", "C#", "C"], length  x > 3]
+
+
+pin:: Int -> String
+pin x
+    | mod x 4 == 0 = "PIN"
+    | otherwise = show x
+
+-> 'show' retorna qualquer coisa em string
+
+-- LISTA: ESTRUTURA QUE ADMITE 0 ou 1 ou 2
+-- ou 3, ..., ou infinitos elementos de mesmo
+-- tipo. Listas podem ser manipuladas, ou seja,
+-- podemos extrair o primeiro elementos, reverter,
+-- pegar vários elementos, concatenar, etc...
+
+-- TUPLAS: Estrutura que admite um numero (finito) 
+-- fixo de elementos. A manipulação é limitada.
+-- Tuplas são usadas para carregar vários valores
+-- de tipos diferentes ao mesmo tempo.
+
+-- GUARDS: EXPRESSOES BOOLEANAS A SEREM
+-- TESTADAS ORDENADAMENTE. CASO A CONDICAO
+-- SEJA VERDADEIRA, SERA RETORNADO A EXPRESSAO
+-- APOS O SEPADOR =. CASO SEJA FALSO, PROCEDERA
+-- PARA A PROXIMA CONDICAO. O otherwise INDICA
+-- QUE ESTAMOS NA ULTIMA CONDICAO.
+
+:t (True, Bool)
+
+
+[(num, naipe) | num <- "A234567890JQK",  naipe <- ["PAUS", "COPAS", "ESPADAS", "OUROS"]]
