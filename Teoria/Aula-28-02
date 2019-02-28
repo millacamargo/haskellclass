@@ -1,0 +1,51 @@
+-- Minhas Anotações:
+
+-- Sempre abrir a module no GHCI quando fizer algo. Colocar :l nomedoarquivo.hs
+-- Haskell é nativo.
+-- Para criar um tipo temos que usar a palavra data 
+-- Dia é o nome do tipo/ Data Constructor 
+-- os que estão depois do = são os valores. esta barrinha | significa ou
+-- esses caras sao tipos de enumeracao. Equivalentes as Enums do Java.
+-- Servem para coisas que voce consegue categorizar.
+
+-- De acordo com Garcia:
+-- TIPO DE ENUMERACAO: POSSUI FINITOS CONSTRUTORES E NENHUM DELES POSSUEM CAMPO.
+
+-- Mais anotações minhas:
+
+-- Sempre que aparecer este erro: <interactive>:3:1:
+-- No instance for (Show Dia) arising from a use of `print'
+-- Possible fix: add an instance declaration for (Show Dia)
+-- In a stmt of an interactive GHCi command: print it
+-- Usar deriving
+
+-- Minhas anotações:
+
+-- ctrl + K ajuda a recompilar o ghci
+-- No GCHI: let a = read "Quinta" :: Dia
+-- No GHCI: let a = read [1,2,3,4,5]" :: [Int,Bool,Double]
+-- Parse pegar uma string e converter para uma estrutura de dados 
+-- No GHCI: :t + variavel mostra o tipo que voce desejou
+-- Show converte o tipo para String
+-- Funcao agenda, pega o tipo Dia e devolve uma String
+-- Pattern Matching colocar na entrada da funcao, eu consigo enxergar o que ta vindo pra mim
+-- Ou seja é como se tivesse um if na entrada na funcao.
+-- Ele é mais como um if: ele age como, mas depois faz trabalho de base de dados.
+-- Numa linguagem comum seria um if no corpo, no Haskell é na entrada.
+-- Segunda seria a entrada, depois do  =  coloca a saida
+-- quando nao usar variavel usar _ para ignorar a entrada
+-- agenda se repete varias vezes porque quebra a funcao em casos
+
+-- De acordo com Garcia:
+-- PATTERN MATCHING: EXPOSIÇAO DE UM TIPO NA ENTRADA DE UMA FUNÇAO. A FUNÇAO QUE
+-- IMPLEMENTA ESSE CONCEITO, SERA DIVIDIDA EM CASOS, CADA CASO DEVERA TER UMA (OU MAIS) 
+-- CONSTANTE(S) DO TIPO EM QUESTAO.
+-- O PATTERN MATCHING SE ENCERRA QUANDO TODAS AS CONSTANTES
+-- FOREM USADAS OU UMA VARIAVEL FOR USADA (POR
+-- EXEMPLO, _).
+
+--Pattern Matching conceito:
+
+nomefuncao :: Entrada -> Saida
+nomefuncao Valor1 (constante = variavel: letras ou _ (IGNORO)) = EXPR1
+nomefuncao varivale = expr da variavel
