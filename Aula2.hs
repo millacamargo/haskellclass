@@ -36,7 +36,7 @@ toDia 7 = Sabado
 -- O PORTUGUES.
 
 data Day = Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday 
-            deriving (Show, Eq, Enum)
+            deriving Show
 
 traduzirPT :: Day -> Dia
 traduzirPT Sunday = Domingo
