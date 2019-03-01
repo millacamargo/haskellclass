@@ -1,5 +1,6 @@
 module Aula2 where
 
+-- o que esta em data sempre maiuscula na primeira letra
 
 data Dia = Domingo | Segunda | Terca | Quarta
          | Quinta  | Sexta   | Sabado
@@ -21,14 +22,23 @@ agenda _ = "Dia de bosta"
 -- E DEVOLVA UM DIA CONFORME A REGRA: 1 -> Domingo,
 -- 2 -> Segunda, ..., 7 -> Sabado.
 
-toDia :: Int -> Dia
-toDia 1 = Domingo
-toDia 2 = Segunda
-toDia 3 = Terca
-toDia 4 = Quarta
-toDia 5 = Quinta
-toDia 6 = Sexta
-toDia 7 = Sabado
+-- FUNCOES QUE NAO POSSUEM TODAS AS ENTRADAS
+-- DO PATTERN MATCHING SAO CHAMADAS DE
+-- PARCIAIS. Esta era um exemplo disso.
+-- A partir do momento que coloca-se either vira funcao completa.
+-- Either: ou String ou Dia. Somando dois tipos. Somando a String com o dia.
+-- Tudo que tiver na direita é acerto, esquerda erro, por isso o right e left.
+-- toDia :: Int -> String + Dia
+-- (String + 7)^Dia
+toDia :: Int -> Either String Dia 
+toDia 1 = Right Domingo
+toDia 2 = Right Segunda
+toDia 3 = Right Terca
+toDia 4 = Right Quarta
+toDia 5 = Right Quinta
+toDia 6 = Right Sexta
+toDia 7 = Right Sabado
+toDia _ = Left "Erro: Dia invalido"
 
 -- 2) CRIE UM TIPO CHAMADO DAY QUE POSSUA OS DIAS
 -- DA SEMANA, EM INGLES, COMO VALORES. CRIE, TAMBEM,
