@@ -2,6 +2,49 @@ module Aula2 where
 
 -- o que esta em data sempre maiuscula na primeira letra
 
+-- Outro exemplo
+data Unidade = Kmh | Mph deriving Show
+
+data Velocidade = Velocidade {
+    valor :: Double,
+    unidade :: Unidade
+} deriving Show
+
+conversao :: Velocidade -> Velocidade 
+conversao (Velocidade v Kmh) = Velocidade (0.625*v) Mph
+conversao (Velocidade v Mph) = Velocidade (1.6*v) Kmh
+
+-------------------------------------------------------
+
+data Curso = ADS | SI | GP | LOG | GE
+        deriving (Eq, Show)
+
+--TIPOS COM CAMPOS
+-- Tipo de tupla String Curso Double, como se fosse uma classe.
+--data Aluno = Aluno String Curso Double 
+       -- deriving (Eq, Show) 
+        
+-- RECORD SYNTAX: DAR AOS CAMPOS E ESSES NOMES SAO FUNCOES DE PROJECAO (GETTERS)
+--nome (Aluno "Camila" SI 4000) no GHCI vai aparecer so o nome.
+data Aluno = Aluno {
+    nome :: String,
+    curso :: Curso,
+    salario :: Double
+} deriving (Eq, Show)
+
+-- Pattern Matching
+aSalario :: Aluno -> Aluno
+-- tres campos String Curso Double, tres variaves n de nome, c de curso, s de salario
+-- Para rodar no GHCI colocar aSalario (Aluno "Camila" SI 12000)
+aSalario (Aluno n c s) = Aluno n c (1.2*s)
+
+-- Sem Pattern Matching
+bSalario :: Aluno -> Aluno 
+bSalario a = Aluno (nome a) (curso a) (1.2*(salario a))
+
+-- A diferenca é que com pattern matching nao precisa fazer gets
+-------------------------------------------------
+
 data Dia = Domingo | Segunda | Terca | Quarta
          | Quinta  | Sexta   | Sabado
          deriving (Show, Eq, Enum, Read)
@@ -12,7 +55,7 @@ data Dia = Domingo | Segunda | Terca | Quarta
 
 agenda :: Dia -> String
 agenda Segunda = "Dia de trabalhar"
-agenda Quarta =  "Dia de futebol"
+agenda Quarta =  "Dia de futebol" 
 agenda Quinta = "Dia de Haskell"
 agenda Sexta = "Dia de Fabio Assuncao"
 agenda Sabado = "Dia de aula"

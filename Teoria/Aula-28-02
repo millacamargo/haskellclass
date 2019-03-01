@@ -51,3 +51,9 @@ nomefuncao Valor1 (constante = variavel: letras ou _ (IGNORO)) = EXPR1
 nomefuncao varivale = expr da variavel
 
 -- FUNCAO TOTAL: TODAS AS ENTRADAS DO PATTERN MATCHING ESTAO COBERTAS.
+
+
+-----------------------------------------------------------------------
+SEGUNDA PARTE DA AULA
+
+data (Aluno) ESTE É O NOME DO TIPO = (Aluno) ESTE É VALUE (String Curso Double) ESTES SAO CAMPOS
