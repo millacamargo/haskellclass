@@ -16,7 +16,7 @@ d = [ x | x<-[5,8..41], not (elem x [14,23,35]) ] -- a lista esta correta, porem
 e = [ x/2 | x<-[2.0,1.0,0.5,0.25,0.125,0.0625] ]
 
 f = [ x | x<-[1,10..64] ]
-
+ 
 g = [x | x <- [2,4..30], not (elem x [6, 14, 20, 26]) ]
 
 h = [ x | x<-['@'..'L'], not (elem x "BFHIK") ] 
