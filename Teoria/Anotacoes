@@ -155,3 +155,19 @@ pin x
 
 
 [(num, naipe) | num <- "A234567890JQK",  naipe <- ["PAUS", "COPAS", "ESPADAS", "OUROS"]]
+
+
+----------------------------------------------------------------------
+CAPITULO 4 do livro
+
+OBS: SEGUEM OS PRECEITOS DO CÁLCULO LAMBDA
+Como mexer na função por calculos.
+
+CURRYING -> SAO FUNCOES QUE FORAM
+CHAMADAS COM MENOS ARGUMENTOS QUE 
+O ESPERADO.
+
+let f = (\x y -> (x-y,x,x+y) 4
+f l = (\y -> (4-y,4,4+y)) que seria (\1-> (4-1,4,4+1)) que resultara (3,4,5)
+HIGH ORDER FUNCTIONS -> SÃO FUNCOES QUE
+RECEBEM E/OU RETORNAM FUNCOES.
