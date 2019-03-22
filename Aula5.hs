@@ -1,5 +1,25 @@
 module Aula5 where
 
+import Data.Monoid 
+
+instance Monoid a => Monoid (Bolsa a) where 
+    mempty = Bolsa mempty mempty
+    mappend (Bolsa a b) (Bolsa c d)
+        = Bolsa (a <> c) (b <> d)
+        --ghci Bolsa "OLA" "FATEC" <> Bolsa "MUNDO" "SANTOS"
+        -- fica Ola Mundo e Fatec Santos
+
+data And = And Bool deriving Show
+
+instance Monoid And where 
+    mempty = And True
+    mappend (And x) (And y) = And (x && y)
+    -- mconcat (And True, And False)
+    --mappend (And x) (And y)
+    -- Sum 5 <> Sum <> 7 <> Sum 6]
+    -- :kind monoid * -> restricao
+
+
 -- Nas funções polimórfica você não pode ver o que estão nas variáveis, apenas programá-las.
 -- Uncurrying, o contrário do currying.
 
@@ -135,3 +155,7 @@ instance SimNao Bool where
 instance Eq a => Eq (Bolsa a) where 
     Bolsa a1 a2 == Bolsa b1 b2 = (a1 == b1 && a2 == b2)
                                 || (a1 == b2 && a2 == b1)
+                                
+-- concat unifica tudo no []
+--  sum soma tudo no []
+-- product soma tudo no []

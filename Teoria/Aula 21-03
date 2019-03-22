@@ -1,0 +1,32 @@
+TypeClasses:
+
+Monoid - um monoide é a tripla (m, <>, mempty)
+onde, m é um tipo (kind *)
+<>:: m -> m -> m e o mempty::m, satisfazendo os seguintes axiomas:
+a) Neutro     V e :m x<>mempty =x
+              E  mempty <> x = x
+b)Associatividade V a,b,c : m (a<>b)<>c = a <> (b<>c)
+
+m = Int (tipo)
+(<>) = (+) (operacao binaria)
+mempty = 0 (neutro)
+
+quickcheck verfica se ta tudo certo.
+
+outro:
+m = Int
+(<>) = (*)
+mempty = 1
+
+Mais um: subtracao nao conta porque nao tem elemento neutro. Com a divisao tambem.
+x - 0 = x
+0 - x = -x logo NAO PODE!
+NAO PODE SER O PROPRIO m TEM QUE SER DEFINIDO.
+
+m = String
+(<>) = ++ concatenação
+mempty = [] vazio
+
+Se importa com variancia de parenteses e nao dos elementos.
+Na programacao paralela se tiver monoid, suave. Porque é associativo.
+Só garante o neutro e a operação.
