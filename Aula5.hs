@@ -12,9 +12,9 @@ instance Monoid a => Monoid (Bolsa a) where
 data And = And Bool deriving Show
 
 instance Monoid And where 
-    mempty = And True
-    mappend (And x) (And y) = And (x && y)
-    -- mconcat (And True, And False)
+    mempty = And False
+    mappend (And x) (And y) = And (x || y)
+    -- mconcat [And True, And False]
     --mappend (And x) (And y)
     -- Sum 5 <> Sum <> 7 <> Sum 6]
     -- :kind monoid * -> restricao
