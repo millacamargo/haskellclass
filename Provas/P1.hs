@@ -99,7 +99,7 @@ mostra (Dupla a ls)
 -- a) \x -> x :: a -> a
 -- b) id :: a -> a
 -- c) 36 :: Num a => a
--- d) ("FATEC",False,'K') :: ([Char], Bool, Char)
+-- d) (''FATEC'',False,'K') :: ([Char], Bool, Char)
 -- e) [(False, False), (True, False), (False, True), (True, True)]  :: [(Bool, Bool)] 
 -- f) filter id :: [Bool] -> [Bool]
 
