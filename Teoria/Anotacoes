@@ -171,3 +171,12 @@ let f = (\x y -> (x-y,x,x+y) 4
 f l = (\y -> (4-y,4,4+y)) que seria (\1-> (4-1,4,4+1)) que resultara (3,4,5)
 HIGH ORDER FUNCTIONS -> SÃO FUNCOES QUE
 RECEBEM E/OU RETORNAM FUNCOES.
+
+head FATEC
+F
+
+head ""
+Retorna uma mensagem que está vazia
+
+funcao safeHead ""
+devolve Nothing
