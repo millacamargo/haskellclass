@@ -16,23 +16,22 @@ safeHead :: [a] -> Maybe a
 safeHead [] = Nothing
 safeHead (x:_) = Just x
 
-main''' :: IO ()
-main''' = do 
-    putStrLn "Digite uma palavra: "
-    str <- getLine
+main :: IO ()
+main = putStrLn "Digite uma palavra: " >>
+    getLine >>= \str ->
     case safeHead str of
         Nothing -> putStrLn "ERRO"
-        Just letra -> putStrLn $ "A letra eh: " ++ show letra
+        Just letra ->putStrLn $ "A letra eh: " ++ show letra
     
 -- Pode ser assim
-main :: IO ()
-main = putStrLn "Digite um numero: " >> 
+main' :: IO ()
+main' = putStrLn "Digite um numero: " >> 
        readLn >>= \x -> putStrLn "Digite outro numero: " >>
        readLn >>= \y -> putStrLn $ "O resultado eh: " ++ show (x+y)
 
 -- Ou assim
-main' :: IO ()
-main' = do
+main''' :: IO ()
+main''' = do
     putStrLn "Digite um numero: "
     x <- readLn
     putStrLn "Digite outro numero: "
