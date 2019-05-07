@@ -7,14 +7,29 @@ import System.Random
 
 {- 8.2 Crie	uma	função		mult234	::	Double	->	Caixa	Double	
  que	 receba	 uma	 parâmetro	 x	 e	 devolva	 o	 dobro	 de	 x	 na	 primeira
-coordenada,	o	triplo	na	segunda	e	o	quádruplo	na	terceira	usando	o operador >>=	. -}
+coordenada,	o	triplo	na	segunda	e	o	quádruplo	na	terceira	usando	o operador >>=	. 
+-}
 
-data Caixa a = Um a | Dois a a | Tres a a a
+-- no ghci mult234 2
+
+data Caixa a = Um a | Dois a a | Tres a a a deriving (Eq, Show)
+
+instance Functor Caixa where
+    fmap c (Tres g h i) = Tres (c g) (c h) (c i)
+
+instance Monad Caixa where
+    return x = Um x
+    (Um x) >>= f = (f x) 
+    (Dois x y) >>= f = (f y)
+    (Tres x y z) >>= f = (f z)
 
 mult234	::	Double	->	Caixa	Double
-mult234 x = Tres (x*2) (x*3) (x*4) 
+mult234 x = return x >>= \d -> Tres (d*2) (d*3) (d*4) 
 
--- Não tem sentido, porque não tem onde inserir um >>=
+-- return ta ali pra usar o >>=  porque a entrada dele é um valor monadico e o \d é uma função que devolve um monad Tres
+-- Pra ser Monad tem que ter funtor também.
+
+-- Não tem sentido, porque não tem onde inserir um >>=, porque ele recebe 1 e retorna 1 e tem que ser o mesmo monad caixa double -> caixa double.
 
 {- 9.4 Faça	 um	 programa	 que	 calcule	 uma	 equação	 do	 segundo
 grau,	a	partir	dos	dados	digitados	pelo	usuário. 
@@ -145,7 +160,7 @@ main'''	=	do
                 lista	<-	fmap	(map	words	.	lines)	$	readFile	"func.dat"
                 salarios	<-	return	$	map	(\(_:vl:_)	->	read	vl)	lista	::	IO	[Double]
                 printf	"%.2f\n"	$	sum	salarios
-                print	$	maximum	salarios-}
+                print	$	maximum	salarios
                 
 main :: IO ()
 main = fmap (map words . lines) (readFile "func.dat") >>= \lista ->
@@ -169,7 +184,7 @@ main' = putStrLn "Digite o nome do arquivo. Será criado caso não exista" >>
     doesFileExist arq >>= \existe ->
         if existe then
             appendFile arq ("\n" ++ mensagem) 
-            else writeFile arq mensagem 
+            else writeFile arq mensagem -}
             
 {- getLine pega o IO String depois o >>= pega o valor monadico tirar de dentro da Monad e vai aplicar esse valor
 numa função que retorna essa mesma Monad -}
