@@ -1,0 +1,2 @@
+Olá, Haskell!
+Hi, Haskell

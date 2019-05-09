@@ -1,6 +1,6 @@
 module Main where
 
-import	Control.Monad
+import Control.Monad
 import	Text.Printf
 import	System.Directory
 import System.Random
@@ -12,19 +12,19 @@ coordenada,	o	triplo	na	segunda	e	o	quádruplo	na	terceira	usando	o operador >>=
 
 -- no ghci mult234 2
 
-data Caixa a = Um a | Dois a a | Tres a a a deriving (Eq, Show)
+--data Caixa a = Um a | Dois a a | Tres a a a deriving (Eq, Show)
 
-instance Functor Caixa where
-    fmap c (Tres g h i) = Tres (c g) (c h) (c i)
+--instance Functor Caixa where
+   -- fmap c (Tres g h i) = Tres (c g) (c h) (c i)
 
-instance Monad Caixa where
-    return x = Um x
-    (Um x) >>= f = (f x) 
-    (Dois x y) >>= f = (f y)
-    (Tres x y z) >>= f = (f z)
+--instance Monad Caixa where
+  --  return x = Um x
+  --  (Um x) >>= f = (f x) 
+   -- (Dois x y) >>= f = (f y)
+  --  (Tres x y z) >>= f = (f z)
 
-mult234	::	Double	->	Caixa	Double
-mult234 x = return x >>= \d -> Tres (d*2) (d*3) (d*4) 
+--mult234	::	Double	->	Caixa	Double
+--mult234 x = return x >>= \d -> Tres (d*2) (d*3) (d*4) 
 
 -- return ta ali pra usar o >>=  porque a entrada dele é um valor monadico e o \d é uma função que devolve um monad Tres
 -- Pra ser Monad tem que ter funtor também.
@@ -32,10 +32,10 @@ mult234 x = return x >>= \d -> Tres (d*2) (d*3) (d*4)
 -- Não tem sentido, porque não tem onde inserir um >>=, porque ele recebe 1 e retorna 1 e tem que ser o mesmo monad caixa double -> caixa double.
 
 {- 9.4 Faça	 um	 programa	 que	 calcule	 uma	 equação	 do	 segundo
-grau,	a	partir	dos	dados	digitados	pelo	usuário. 
+grau,	a	partir	dos	dados	digitados	pelo	usuário.  
 main :: IO ()
 main = putStrLn "Digite o valor de a: " >> 
-       (readLn >>= \a -> putStrLn "Digite o valor de b: ") >>
+       readLn >>= \a -> putStrLn "Digite o valor de b: " >>
        readLn >>= \b -> putStrLn "Digite o valor de c: " >> 
        readLn >>= \c ->
         if (d a b c) == 0 then 
@@ -44,19 +44,19 @@ main = putStrLn "Digite o valor de a: " >>
             if (d a b c) > 0 then
                 putStrLn $ "O resultado eh: " ++ show (((-b+sqrt(d a b c))/(2*a)),  ((-b-sqrt(d a b c))/(2*a)))
             else
-                putStrLn $ "ERRO" 
-     where d b a c = ((b*b) - ((4*a)*c))
-       -} 
+                putStrLn $ "Nao possui raiz real" 
+     where d a b c = ((b*b) - ((4*a)*c))
+       -}
 
 {- 9.5 Converta	 para	 o	 "estilo	 funcional"	 os	 7	 exemplos	 dados
 neste	capítulo.	Basta	escrever	os	 trechos	da	notação		do		pelo		>>=
 (bind)		e		>>	 
 
 
--- Exemplo	1:	soma de dois números (feito)
+-- Exemplo	1:	soma de dois números 
 
-main' ::	IO ()
-main' = putStrLn "Digite um número: " >>
+main ::	IO ()
+main = putStrLn "Digite um número: " >>
     readLn >>= \x -> putStrLn "Digite outro número: " >>
     readLn >>= \y -> putStrLn $ "Resultado: " ++ show (x+y)
     
@@ -73,8 +73,8 @@ let	loop = do
     else
     putStrLn $ "Ola	" ++ nome
     loop
-    putStrLn "Fim" 
-    
+    putStrLn "Fim" -}
+  {-  
 main :: IO ()
 main = 
     let loop = putStrLn "Qual seu nome?" >>
@@ -84,10 +84,10 @@ main =
                     loop
                 else
                     putStrLn $ "Ola " ++ nome
-    in loop >> putStrLn "Fim"
+    in loop >> putStrLn "Fim"-}
     
 -- Exemplo	3:	loop for funcional
-
+{-
 main' :: IO ()
 main' = do
     z	<-	readLn
@@ -98,7 +98,7 @@ main :: IO ()
 main = readLn >>= \z ->
         forM_ [1..z] $ \i -> print i
  
-   
+  
 -- Exemplo	4:	for	funcional
 
 main :: IO ()
@@ -114,31 +114,17 @@ main :: IO ()
 main = let dentro i = (putStrLn $ "Número " ++ (show i)) >> readLn in
     readLn >>= \z -> 
         mapM dentro [1..z] >>= \ns ->
-            putStrLn $ "Resultado: " ++ (show $ sum ns)-}
-    
+            putStrLn $ "Resultado: " ++ (show $ sum ns)
+   
 
 
 -- Exemplo 5: adivinhando uma carta do baralho
-{-
+
 data	Naipe	=	Ouros	|	Espadas	|	Copas	|	Paus	deriving	(Eq, Show,	Enum, Read)
 data	Valor	=	Dois	|	Tres	|	Quatro	|	Cinco	|	Seis	|	
                                                     Sete	|	Oito	|	Nove	|	Dez	|	J	|	Q	|	K	|	A
                                                     deriving	(Eq, Show,	Enum, Read)
 data	Carta	=	Carta	{valor	::	Valor,	naipe	::	Naipe}	deriving	(Eq, Show, Read)
-
-
-main'''	::	IO	()
-main'''	=	do
-                let	acertou	True	=	"Você	acertou"
-                                acertou	False	=	"Errou..."
-                baralho	<-	return	[Carta	x	y	|	x<-[Dois	..	A],	y<-[Ouros	..	Paus]]
-    cartaNum	<-	randomRIO	(1,	length	baralho)				
-                carta	<-	return	$	baralho	!!	cartaNum
-                putStrLn	"Escreva	a	carta	para	adivinhar:	"
-                palpite	<-	readLn	
-                putStrLn	$	"Sua	carta	foi	"	++	show	(valor	carta)	++	"	de	"	++
-    show	(naipe	carta)
-                putStrLn	$	acertou	$		carta	==	palpite 
                 
 main :: IO ()
 main = return [Carta x y | x <- [Dois .. A], y <- [Ouros .. Paus]] >>= \baralho ->
@@ -149,25 +135,25 @@ main = return [Carta x y | x <- [Dois .. A], y <- [Ouros .. Paus]] >>= \baralho 
         (putStrLn $ "Sua carta foi " ++ show (valor carta) ++ " de " ++ show (naipe carta)) >>
         (putStrLn $ acertou $ carta == palpite)
     where acertou True = "Você acertou"
-          acertou False = "Errou..."
+          acertou False = "Errou..."-}
         
 
 -- Exemplo 6: salário	 total	 e	 maior	 de	 uma	 lista	 de funcionários
 
-
+{-
 main'''	::	IO	()
 main'''	=	do
                 lista	<-	fmap	(map	words	.	lines)	$	readFile	"func.dat"
                 salarios	<-	return	$	map	(\(_:vl:_)	->	read	vl)	lista	::	IO	[Double]
                 printf	"%.2f\n"	$	sum	salarios
-                print	$	maximum	salarios
-                
+                print	$	maximum	salarios-}
+   {-             
 main :: IO ()
 main = fmap (map words . lines) (readFile "func.dat") >>= \lista ->
         printf "%.2f\n" (sum $ f lista) >>
         print (maximum $ f lista)
     where f :: [[String]] -> [Double]
-          f lista = map (\(_:v1:_) -> read v1) lista
+          f lista = map (\(_:v1:_) -> read v1) lista-}
 
 {- 1. Le o arquivo, primeiro linhas e depois as palavras;
    2. \lista: uma lista com uma sublista 
@@ -176,16 +162,16 @@ main = fmap (map words . lines) (readFile "func.dat") >>= \lista ->
                 
 -- Exemplo 7: uso	do	write	e	append 
 
-main' :: IO ()
-main' = putStrLn "Digite o nome do arquivo. Será criado caso não exista" >>
+main :: IO ()
+main = putStrLn "Digite o nome do arquivo. Será criado caso não exista" >>
     getLine >>= \arq ->
     putStrLn "Digite uma mensagem" >> 
     getLine >>= \mensagem ->
     doesFileExist arq >>= \existe ->
         if existe then
             appendFile arq ("\n" ++ mensagem) 
-            else writeFile arq mensagem -}
-            
+            else writeFile arq mensagem 
+           
 {- getLine pega o IO String depois o >>= pega o valor monadico tirar de dentro da Monad e vai aplicar esse valor
 numa função que retorna essa mesma Monad -}
 
